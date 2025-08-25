@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Lívia Almeida - Nail Designer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255,240,245,0.9) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(255,228,225,0.8) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(245,245,245,0.6) 0%, transparent 60%),
+                linear-gradient(135deg, #faf8f9 0%, #f5f0f2 100%);
+            min-height: 100vh;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(212,165,165,0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(196,154,154,0.12) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 90%, rgba(184,134,139,0.08) 0%, transparent 40%),
+                linear-gradient(45deg, 
+                    rgba(255,255,255,0.3) 0%, 
+                    rgba(255,240,245,0.2) 25%, 
+                    rgba(255,228,225,0.15) 50%, 
+                    rgba(245,245,245,0.1) 75%, 
+                    rgba(255,255,255,0.3) 100%
+                );
+            opacity: 0.6;
+            z-index: -2;
+            animation: marbleShift 20s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 15%;
+            right: -5%;
+            width: 400px;
+            height: 500px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cdefs%3E%3ClinearGradient id='nailGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4a5a5;stop-opacity:0.9'/%3E%3Cstop offset='30%25' style='stop-color:%23c49a9a;stop-opacity:0.7'/%3E%3Cstop offset='70%25' style='stop-color:%23b88e8e;stop-opacity:0.5'/%3E%3Cstop offset='100%25' style='stop-color:%23a67c7c;stop-opacity:0.3'/%3E%3C/linearGradient%3E%3ClinearGradient id='shimmer' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:rgba(255,255,255,0);stop-opacity:0'/%3E%3Cstop offset='50%25' style='stop-color:rgba(255,255,255,0.4);stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:rgba(255,255,255,0);stop-opacity:0'/%3E%3C/linearGradient%3E%3CradialGradient id='highlight' cx='50%25' cy='30%25' r='40%25'%3E%3Cstop offset='0%25' style='stop-color:rgba(255,255,255,0.6);stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:rgba(255,255,255,0);stop-opacity:0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M200 60 Q240 70 250 120 Q255 180 250 240 Q245 300 240 360 Q235 420 200 460 Q165 420 160 360 Q155 300 150 240 Q145 180 150 120 Q160 70 200 60 Z' fill='url(%23nailGrad)' stroke='rgba(184,134,139,0.4)' stroke-width='3'/%3E%3Cpath d='M200 80 Q225 85 230 110 Q233 150 230 190 Q227 230 225 270 Q223 310 200 340 Q177 310 175 270 Q173 230 170 190 Q167 150 170 110 Q175 85 200 80 Z' fill='rgba(255,255,255,0.3)'/%3E%3Cpath d='M200 90 Q215 92 218 105 Q220 125 218 145 Q216 165 214 185 Q212 205 200 220 Q188 205 186 185 Q184 165 182 145 Q180 125 182 105 Q185 92 200 90 Z' fill='url(%23shimmer)'/%3E%3Cellipse cx='200' cy='130' rx='15' ry='25' fill='url(%23highlight)' opacity='0.8'/%3E%3Cpath d='M185 100 Q200 95 215 100 Q210 105 200 108 Q190 105 185 100 Z' fill='rgba(255,255,255,0.9)' opacity='0.7'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+            opacity: 0.12;
+            z-index: -1;
+            filter: blur(2px);
+            animation: floatNail 18s ease-in-out infinite;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 100%;
+            min-height: 100vh;
+            height: auto;
+            margin: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,240,245,0.3) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(255,228,225,0.2) 0%, transparent 60%),
+                radial-gradient(circle at 50% 90%, rgba(245,245,245,0.15) 0%, transparent 60%),
+                linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(252,248,250,0.95) 100%);
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: blur(10px);
+            border: none;
+            overflow: visible;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(218,165,32,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139,69,19,0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 30%, rgba(218,165,32,0.03) 50%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 30px 20px;
+            position: relative;
+            background: 
+                radial-gradient(circle at 40% 30%, rgba(232,180,184,0.2) 0%, transparent 70%),
+                radial-gradient(circle at 60% 70%, rgba(212,175,55,0.15) 0%, transparent 70%),
+                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(248,245,242,0.05) 100%);
+        }
+        
+        .logo-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c49a9a 50%, #b88e8e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(212,165,165,0.25);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+        
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 2px solid rgba(184,134,139,0.4);
+            border-radius: 50%;
+            top: -7px;
+            left: -7px;
+        }
+        
+        .logo-circle::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 50%;
+            top: 9px;
+            left: 9px;
+        }
+        
+        .logo-initials {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nail-accent {
+            position: absolute;
+            width: 16px;
+            height: 6px;
+            background: linear-gradient(135deg, #b88e8e 0%, #a67c7c 100%);
+            border-radius: 8px;
+            top: 20px;
+            right: 25px;
+            transform: rotate(45deg);
+            opacity: 0.9;
+        }
+        
+        .nail-accent::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            top: 1px;
+            right: 2px;
+        }
+        
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5a5a 0%, #a67c7c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            background: linear-gradient(135deg, #7a6b6b 0%, #8b7575 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .premium-accent {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f4c2c2, #d4af37, #8b7355, #696969, transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        .premium-accent:nth-child(1) { 
+            top: 30px; 
+            right: 30px; 
+            transform: rotate(45deg);
+            animation-delay: 0s; 
+        }
+        .premium-accent:nth-child(2) { 
+            bottom: 30px; 
+            left: 30px; 
+            transform: rotate(-45deg);
+            animation-delay: 1.5s; 
+        }
+        
+        .diamond-accent {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #f4c2c2 0%, #d4af37 50%, #696969 100%);
+            transform: rotate(45deg);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .diamond-accent:nth-child(3) { 
+            top: 50px; 
+            left: 50px; 
+            animation-delay: 0.5s; 
+        }
+        .diamond-accent:nth-child(4) { 
+            bottom: 50px; 
+            right: 50px; 
+            animation-delay: 2s; 
+        }
+        
+        .content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .floating-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-style: italic;
+            background: linear-gradient(135deg, #8b5a5a 0%, #a67c7c 50%, #7a6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.85;
+            font-weight: 400;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+        
+        .floating-quote::before {
+            content: '◆';
+            position: absolute;
+            font-size: 8px;
+            background: linear-gradient(135deg, #f4c2c2 0%, #d4af37 50%, #696969 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+        
+        .floating-quote::after {
+            content: '◆';
+            position: absolute;
+            font-size: 8px;
+            background: linear-gradient(135deg, #f4c2c2 0%, #d4af37 50%, #696969 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            top: 50%;
+            right: -20px;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            animation: sparkle 3s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+        
+        .buttons-grid {
+            display: grid;
+            gap: 10px;
+            margin: 0;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #d4a5a5 0%, #c49a9a 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(212,165,165,0.25);
+            letter-spacing: 0.5px;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212,165,165,0.35);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #a67c7c 0%, #8b6b6b 100%);
+            box-shadow: 0 4px 15px rgba(166,124,124,0.25);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(166,124,124,0.35);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,240,245,0.4) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(255,228,225,0.3) 0%, transparent 60%),
+                linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(252,248,250,0.95) 100%);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            width: 350px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15), 0 8px 25px rgba(184,134,139,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212,165,165,0.3);
+        }
+        
+        .modal h3 {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #8b5a5a 0%, #a67c7c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        .service-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(212,165,165,0.2);
+            color: #8b5a5a;
+            font-weight: 500;
+        }
+        
+        .service-item:last-child {
+            border-bottom: none;
+        }
+        
+        .promo-item {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,240,245,0.3) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(212,165,165,0.1) 0%, rgba(184,134,139,0.05) 100%);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid;
+            border-image: linear-gradient(135deg, #d4a5a5 0%, #c49a9a 100%) 1;
+        }
+        
+        .promo-title {
+            font-weight: 600;
+            background: linear-gradient(135deg, #8b5a5a 0%, #a67c7c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+        
+        .promo-price {
+            color: #7a6b6b;
+            font-size: 14px;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #8b5a5a;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #a67c7c;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes logoGlow {
+            from {
+                box-shadow: 0 10px 30px rgba(212,165,165,0.25);
+            }
+            to {
+                box-shadow: 0 15px 40px rgba(212,165,165,0.4);
+            }
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: rotate(45deg) scaleX(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: rotate(45deg) scaleX(1.2);
+            }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 0.4;
+                transform: rotate(45deg) scale(1);
+                box-shadow: 0 0 0 rgba(218,165,32,0);
+            }
+            50% { 
+                opacity: 1;
+                transform: rotate(45deg) scale(1.3);
+                box-shadow: 0 0 15px rgba(218,165,32,0.6);
+            }
+        }
+        
+        @keyframes marbleShift {
+            0%, 100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px) rotate(1deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateX(-5px) translateY(10px) rotate(-0.5deg);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translateX(-10px) translateY(-10px) rotate(0.8deg);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes floatNail {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.15;
+            }
+            25% {
+                transform: translateY(-20px) rotate(2deg);
+                opacity: 0.12;
+            }
+            50% {
+                transform: translateY(-10px) rotate(-1deg);
+                opacity: 0.18;
+            }
+            75% {
+                transform: translateY(-30px) rotate(1.5deg);
+                opacity: 0.10;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                height: 100vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .card-container {
+                margin: 0;
+                border-radius: 0;
+                max-width: 100%;
+                width: 100vw;
+                min-height: 100vh;
+                box-shadow: none;
+                border: none;
+            }
+            
+            .content {
+                padding: 20px;
+                flex: 1;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .header {
+                padding: 30px 20px 15px;
+            }
+            
+            .buttons-grid {
+                gap: 12px;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+            
+            body::after {
+                width: 250px;
+                height: 350px;
+                top: 10%;
+                right: -15%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 25px 15px 10px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .logo-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .logo-initials {
+                font-size: 32px;
+            }
+            
+            .title {
+                font-size: 22px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .floating-quote {
+                font-size: 14px;
+                margin: 20px 0 30px 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="header">
+            <div class="premium-accent"></div>
+            <div class="premium-accent"></div>
+            <div class="diamond-accent"></div>
+            <div class="diamond-accent"></div>
+            
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <div class="logo-initials">LA</div>
+                    <div class="nail-accent"></div>
+                </div>
+            </div>
+            <h1 class="title">Lívia Almeida</h1>
+            <p class="subtitle">Nail Designer</p>
+        </div>
+        
+        <div class="content">
+            <div class="floating-quote" style="text-align: center; margin: 30px 0 40px 0;">
+                "Autocuidado é um ato de amor-próprio."
+            </div>
+            
+            <div class="buttons-grid">
+                <a href="https://wa.me/qr/X4E255NWODFRJ1" class="btn" target="_blank">
+                    Agendamento & Dúvidas
+                </a>
+                
+                <button class="btn btn-secondary" onclick="openModal('servicesModal')">
+                    Serviços
+                </button>
+                
+                <a href="https://www.instagram.com/liihalmeidanails?igsh=eWNoOXpwcjI1ZGoy" class="btn" target="_blank">
+                    Instagram
+                </a>
+                
+                <a href="https://maps.apple.com/place?address=Rua%20Bernardino%20de%20Campos,%2022-70,%20Vila%20Nova%20Celina,%20Bauru%20-%20SP,%2017055-050,%20Brasil&coordinate=-22.338783,-49.106409&name=Rua%20Bernardino%20de%20Campos,%2022-70&map=explore" class="btn btn-secondary" target="_blank">
+                    Localização
+                </a>
+                
+                <button class="btn" onclick="openModal('promosModal')">
+                    Promoções Especiais
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Serviços -->
+    <div id="servicesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('servicesModal')">&times;</span>
+            <h3>Nossos Serviços</h3>
+            <div class="service-item">Alongamento em Fibra de Vidro</div>
+            <div class="service-item">Esmaltação Tradicional & Gel</div>
+            <div class="service-item">Nail Art Personalizada</div>
+            <div class="service-item">Manicure & Pedicure Completa</div>
+            <div class="service-item">Blindagem</div>
+            <div class="service-item">Decorações Especiais</div>
+            <div class="service-item">Manutenção e Reparos</div>
+        </div>
+    </div>
+    
+    <!-- Modal Promoções -->
+    <div id="promosModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('promosModal')">&times;</span>
+            <h3>Promoções Especiais</h3>
+            <p style="text-align: center; color: #8b5a5a; font-weight: 600; margin-bottom: 20px;">
+                Válidas somente terça e quarta-feira
+            </p>
+            
+            <div class="promo-item">
+                <div class="promo-title">Alongamento Fibra de Vidro</div>
+                <div class="promo-price">De R$ 160 por R$ 130</div>
+            </div>
+            
+            <div class="promo-item">
+                <div class="promo-title">Esmaltação em Gel</div>
+                <div class="promo-price">De R$ 100 por R$ 80</div>
+            </div>
+            
+            <div class="promo-item">
+                <div class="promo-title">Pé e Mão</div>
+                <div class="promo-price">De R$ 70 por R$ 50</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Animação das frases motivacionais
+        const quotes = document.querySelectorAll('.floating-quote');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-out';
+                }
+            });
+        });
+        
+        quotes.forEach(quote => {
+            observer.observe(quote);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'974d417ef04cf198',t:'MTc1NjE0NzYyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
